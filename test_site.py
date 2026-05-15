@@ -16,4 +16,4 @@ def test_index_has_title():
 
 def test_index_has_devops_text():
     content = Path("index.html").read_text(encoding="utf-8")
-    assert "Xin chào DevOps" in content
+    assert "Website CI/CD đầu tiên của tôi" in content
