@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoc Git CI/CD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <h1>Xin chào DevOps</h1>
+        <p>Đây là website đầu tiên được deploy bằng GitHub Actions.</p>
+        <button onclick="showMessage()">Bấm thử</button>
+        <p id="message"></p>
+    </main>
+
+    <script>
+        function showMessage() {
+            document.getElementById("message").innerText = "CI/CD đã chạy thành công!";
+        }
+    </script>
+</body>
+</html>
