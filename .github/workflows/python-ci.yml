@@ -1,15 +1,17 @@
-name: Python CI
+name: Python CI CD
 
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  run-python:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Lay code tu GitHub
+      - name: Lay code
         uses: actions/checkout@v4
 
       - name: Cai Python
@@ -17,5 +19,30 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Chay file Python
-        run: python app.py
+      - name: Cai thu vien
+        run: pip install -r requirements.txt
+
+      - name: Chay test
+        run: pytest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Lay code
+        uses: actions/checkout@v4
+
+      - name: Tao thu muc deploy
+        run: |
+          mkdir deploy
+          cp app.py deploy/
+          cp requirements.txt deploy/
+          echo "Deploy thanh cong luc $(date)" > deploy/deploy-log.txt
+
+      - name: Upload ban deploy
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-app-deploy
+          path: deploy/
